@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:24:58 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/11 15:56:10 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:21:29 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,12 @@
 # endif
 
 char	*get_next_line(int fd);
+int		ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char const *s1, char const *s2);
+
+
 
 #endif
