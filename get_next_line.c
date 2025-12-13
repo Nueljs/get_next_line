@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:20:05 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/13 20:03:13 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/13 20:06:50 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*fill_line(char *remember)
 	return (line);
 }
 
-char	*handle_remember(char *remember, char *line)
+static char	*handle_remember(char *remember, char *line)
 {
 	int	i;
 	int	len_rem;
