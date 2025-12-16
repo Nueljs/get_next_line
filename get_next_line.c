@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:20:05 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/15 06:07:25 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/16 05:51:35 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,49 +27,28 @@ static char	*fill_line(char *remember)
 	return (line);
 }
 
-static char	*handle_remember(char *remember, char *line)
+static char	*handle_remember(char *remember)
 {
-	int	i;
-	int	len_rem;
-
+	int		i;
+	char	*new;
+	if (!remember)
+		return (NULL);
 	i = 0;
 	while (remember[i] && remember[i] != '\n')
 		i++;
-	i++;
-	len_rem = ft_strlen(remember) - ft_strlen(line);
-	remember = ft_substr(remember, i, len_rem);
-	return (remember);
+	if (remember[i] == '\n')
+		i++;
+	new = ft_strdup(remember + i);
+	free(remember);
+	return (new);
 }
 
-static char *fill_remember(char *remember, int fd)
+static char *fill_remember(char *remember, char *buffer)
 {
-	char	buffer[BUFFER_SIZE + 1];
-	int		bytesread;
-	
-	bytesread = 1;
-	while (!ft_strchr(remember,'\n'))
-	{
-		bytesread = read(fd, buffer, BUFFER_SIZE);
-		if (bytesread < 0)
-			return (NULL);
-		buffer[bytesread] = '\0';
-		if(!remember)
-			remember = ft_strdup(buffer);
-		else
-			remember = ft_strjoin(remember, buffer);
-	}
-	return (remember);
-}
-static char	*first_time_read(char *remember, int fd)
-{
-	int	bytesread;
-	char	buffer[BUFFER_SIZE + 1];
-	
-	bytesread = read(fd, buffer, BUFFER_SIZE);
-	if (bytesread < 0)
-		return (NULL);
-	buffer[bytesread] = '\0';
-	remember = ft_strdup(buffer);
+	if (!remember)
+		remember = ft_strdup(buffer);
+	else
+		remember = ft_strjoin(remember, buffer);
 	return (remember);
 }
 
@@ -78,27 +57,37 @@ char	*get_next_line(int fd)
 	static char	*remember;
 	char		*line;
 	char		buffer[BUFFER_SIZE + 1];
-	
+	int			bytesread;
+
+	bytesread = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!remember)
-		remember = first_time_read(remember, fd);
-	if (ft_strchr(remember, '\n') || !fill_remember(remember, fd))
+	while (!remember || !ft_strchr(remember, '\n') && bytesread != 0)
 	{
-		line = fill_line(remember);
-		if (!line)
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytesread] = '\0';
+		if (bytesread == 0)
+			break;
+		if (bytesread < 0)
 			return (NULL);
-		remember = handle_remember(remember, line);
-		return (line);
+		if (bytesread > 0)
+			remember = fill_remember(remember, buffer);
 	}
-	else if (!ft_strchr(remember, '\n'))
+	if (bytesread == 0 && (!remember || *remember == '\0'))
 	{
-		remember = fill_remember(remember, fd);
-		line = fill_line(remember);
-		remember = handle_remember(remember, line);
-		return (line);
-	}	
-	return (NULL);
+		free(remember);
+		remember = NULL;
+		return (NULL);
+	}
+	line = fill_line(remember);
+	if (!line)
+	{
+		free(remember);
+		remember = NULL;
+		return (NULL);
+	}
+	remember = handle_remember(remember);
+	return (line);
 }
 
 int	main()
