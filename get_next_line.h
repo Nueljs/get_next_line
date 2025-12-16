@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:24:58 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/12 17:21:29 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/16 20:04:41 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdio.h>
 # include <unistd.h>
 
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
@@ -29,7 +28,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-
-
 
 #endif
