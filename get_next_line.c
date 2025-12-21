@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:20:05 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/19 04:24:31 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/21 18:24:32 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,4 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main()
-{
-	int	fd = open("text.txt", O_RDONLY);
 
-	char *line;
-
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	printf("%s", get_next_line(fd));
-	return 0;
-}
