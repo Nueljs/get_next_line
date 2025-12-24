@@ -4,76 +4,54 @@
 # include <unistd.h>
 # include "get_next_line.h"
 
-int	main()
+static void	print_and_free(char *line)
 {
-	int	fd = open("text.txt", O_RDONLY);
-	int	fd2 = open("text2.txt", O_RDONLY);
+	if (!line)
+	{
+		printf("NULL\n");
+		return ;
+	}
+	printf("%s", line);
+	free(line);
+}
 
-	char *line;
-	// char *l_2text;
+static void	read_all(int fd, const char *label)
+{
+	char	*line;
 
-	// while ((line = get_next_line(fd)) != NULL)
-	// {
-	// 	printf("%s", line);
-	// 	free(line);
-	// }
-	
-	// printf("%s\n", get_next_line(fd));
-	
-	// while ((l_2text = get_next_line(fd2)) != NULL)
-	// {
-	// 	printf("%s", l_2text);
-	// 	free(l_2text);
-	// }
-	
-	// printf("%s", get_next_line(fd2));
+	printf("--- %s ---\n", label);
+	while ((line = get_next_line(fd)) != NULL)
+		print_and_free(line);
+	printf("(EOF -> ");
 	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
+	if (line == NULL)
+		printf("NULL)\n");
+	else
+	{
+		printf("NOT NULL)\n");
+		print_and_free(line);
+	}
+}
 
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
+int	main(void)
+{
+	int	fd;
+	int	fd2;
 
-
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
-
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
-
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
-	
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
-
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
-	
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
-
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
-	
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
-
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	free(line);
-	
-	line = get_next_line(fd2);
-	printf("%s\n", line);
-	free(line);
-	return 0;
+	fd = open("text.txt", O_RDONLY);
+	fd2 = open("text2.txt", O_RDONLY);
+	if (fd < 0 || fd2 < 0)
+	{
+		perror("open");
+		if (fd >= 0)
+			close(fd);
+		if (fd2 >= 0)
+			close(fd2);
+		return (1);
+	}
+	read_all(fd, "text.txt");
+	read_all(fd2, "text2.txt");
+	close(fd);
+	close(fd2);
+	return (0);
 }
