@@ -10,7 +10,7 @@ int	main()
 	int	fd2 = open("text2.txt", O_RDONLY);
 
 	char *line;
-	char *l_2text;
+	// char *l_2text;
 
 	// while ((line = get_next_line(fd)) != NULL)
 	// {
@@ -52,5 +52,28 @@ int	main()
 	printf("%s\n", line);
 	free(line);
 
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	free(line);
+	
+	line = get_next_line(fd2);
+	printf("%s\n", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	free(line);
+	
+	line = get_next_line(fd2);
+	printf("%s\n", line);
+	free(line);
+
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	free(line);
+	
+	line = get_next_line(fd2);
+	printf("%s\n", line);
+	free(line);
 	return 0;
 }

@@ -6,11 +6,11 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 05:14:23 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/22 14:08:02 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/24 04:35:12 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(const char *str)
 {
