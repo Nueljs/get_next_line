@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:13:37 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/24 05:18:06 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/25 05:08:07 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 static char	*fill_remember(char *remember, char *buffer)
 {
+	char	*temp;
+
 	if (!remember)
-		remember = ft_strdup(buffer);
-	else
-		remember = ft_strjoin(remember, buffer);
-	return (remember);
+		return (ft_strdup(buffer));
+	temp = ft_strjoin(remember, buffer);
+	free(remember);
+	return (temp);
 }
 
 static char	*fill_and_read(char *remember, int fd)
 {
 	char	buffer[BUFFER_SIZE + 1];
-	int		bytesread;
-	
+	ssize_t	bytesread;
+
 	while (!remember || !ft_strchr(remember, '\n'))
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
@@ -38,9 +40,12 @@ static char	*fill_and_read(char *remember, int fd)
 		}
 		buffer[bytesread] = '\0';
 		remember = fill_remember(remember, buffer);
+		if (!remember)
+			return (NULL);
 	}
 	return (remember);
 }
+
 static char	*fill_line(char *remember, char *line)
 {
 	int	i;
@@ -62,30 +67,44 @@ static char	*handle_remember(char *remember)
 	i = 0;
 	while (remember[i] && remember[i] != '\n')
 		i++;
-	if (remember[i] == '\n')
-		i++;
+	if (remember[i] == '\0')
+	{
+		free(remember);
+		return (NULL);
+	}
+	i++;
 	aux = ft_strdup(remember + i);
 	free(remember);
-	remember = aux;
-	return (remember);
+	if (!aux || aux[0] == '\0')
+	{
+		free(aux);
+		return (NULL);
+	}
+	return (aux);
 }
 
 char	*get_next_line(int fd)
 {
 	static char *remember[1024];
 	char	*line;
-	
+
 	line = NULL;
-	if (!fd || fd < 0)
+	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
 	remember[fd] = fill_and_read(remember[fd], fd);
-	if (!remember[fd])
+	if (!remember[fd] || remember[fd][0] == '\0')
 	{
 		free(remember[fd]);
 		remember[fd] = NULL;
 		return (NULL);
 	}
 	line = fill_line(remember[fd], line);
+	if (!line)
+	{
+		free(remember[fd]);
+		remember[fd] = NULL;
+		return (NULL);
+	}
 	remember[fd] = handle_remember(remember[fd]);
 	return (line);
 }

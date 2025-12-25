@@ -38,10 +38,19 @@ static char	*handle_remember(char *remember)
 	i = 0;
 	while (remember[i] && remember[i] != '\n')
 		i++;
-	if (remember[i] == '\n')
-		i++;
+	if (remember[i] == '\0')
+	{
+		free(remember);
+		return (NULL);
+	}
+	i++;
 	new = ft_strdup(remember + i);
 	free(remember);
+	if (!new || new[0] == '\0')
+	{
+		free(new);
+		return (NULL);
+	}
 	return (new);
 }
 
@@ -78,6 +87,8 @@ static char	*read_and_fill(int fd, char *remember)
 		}
 		buffer[bytesread] = '\0';
 		remember = fill_remember(remember, buffer);
+		if (!remember)
+			return (NULL);
 	}
 	return (remember);
 }
