@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:13:37 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/25 05:08:07 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/26 05:19:27 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ static char	*handle_remember(char *remember)
 
 char	*get_next_line(int fd)
 {
-	static char *remember[1024];
-	char	*line;
+	static char	*remember[1024];
+	char		*line;
 
 	line = NULL;
 	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)

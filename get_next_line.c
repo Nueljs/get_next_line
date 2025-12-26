@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:20:05 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/21 18:24:32 by macerver         ###   ########.fr       */
+/*   Updated: 2025/12/26 05:18:46 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,3 @@ char	*get_next_line(int fd)
 	remember = handle_remember(remember);
 	return (line);
 }
-
-
