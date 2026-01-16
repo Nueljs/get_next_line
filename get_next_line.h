@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/10 05:24:58 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/16 20:04:41 by macerver         ###   ########.fr       */
+/*   Updated: 2026/01/12 13:28:56 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
