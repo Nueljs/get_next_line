@@ -73,5 +73,4 @@ En cada llamada, el coste depende de los bytes necesarios hasta completar la lí
 ### Uso de IA
 Se utilizó IA como apoyo en tareas de:
 - Al inicio del proyecto para entender la teoria sobre la lectura de archivos.
-- Último repaso de casos límite (EOF, manejo de memoria, multi-fd en bonus) y de fugas de memoria.
 - Redacción y estructuración de este `README.md` según los requisitos.

@@ -6,7 +6,7 @@
 /*   By: macerver <macerver@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 14:13:37 by macerver          #+#    #+#             */
-/*   Updated: 2025/12/26 05:19:27 by macerver         ###   ########.fr       */
+/*   Updated: 2026/01/16 12:26:54 by macerver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char	*get_next_line(int fd)
 	if (!remember[fd] || remember[fd][0] == '\0')
 	{
 		free(remember[fd]);
-		remember[fd] = NULL;
 		return (NULL);
 	}
 	line = fill_line(remember[fd], line);
